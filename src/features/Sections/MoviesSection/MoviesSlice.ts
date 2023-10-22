@@ -66,7 +66,6 @@ export const moviesReducer = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.isMoviesLoading = action.payload;
-      console.log(state.isMoviesLoading);
     },
   },
   extraReducers(builder) {

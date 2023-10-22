@@ -36,7 +36,6 @@ const Nav = () => {
   }, [navEl]);
 
   const setDispatchSearchCall = (value: string) => {
-    console.log(value);
     if (controllerRef.current) {
       controllerRef.current.abort();
     }
