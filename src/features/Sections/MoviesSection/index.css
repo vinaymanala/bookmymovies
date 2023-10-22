@@ -1,0 +1,141 @@
+.title {
+  margin-top: 3rem;
+  padding: 0 10px;
+}
+
+.movies__content {
+  position: relative;
+}
+
+.movies__list {
+  margin-top: 1rem;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overscroll-behavior-x: contain;
+  column-gap: 10px;
+}
+
+.movie__grid {
+  display: grid;
+  margin: 0 20px;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  column-gap: 10px;
+  row-gap: 50px;
+}
+
+.movie__card {
+  width: 200px;
+}
+
+.movie__card > img {
+  width: 200px;
+  object-fit: contain;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
+}
+.movie__title {
+  font-size: 500;
+  font-weight: normal;
+}
+
+.left__arrow,
+.right__arrow {
+  position: absolute;
+  cursor: pointer;
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 15px;
+  color: var(--ternaryColor);
+}
+
+.left__arrow {
+  top: 40%;
+  left: 0%;
+}
+
+.right__arrow {
+  top: 40%;
+  right: 0%;
+}
+
+@media (width <= 720px) {
+  .left__arrow,
+  .right__arrow {
+    display: none;
+  }
+
+  .movies__list {
+    margin: 10px 0;
+    overflow-x: scroll;
+    gap: 10px;
+  }
+  .movie__card > img {
+    width: 180px;
+  }
+
+  .movie__grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    row-gap: 50px;
+  }
+}
+
+@media (width <= 580px) {
+  .movie__card > img {
+    width: 150px;
+  }
+
+  .movie__grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    row-gap: 50px;
+  }
+}
+/* .movies__content {
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+
+
+.movie__card {
+  padding: 140px 120px;
+  background-color: var(--secondaryColor);
+}
+
+@media (width <= 1035px) {
+  .movie__card {
+    padding: 120px 110px;
+  }
+}
+
+@media (width <= 958px) {
+  .movie__card {
+    padding: 120px 100px;
+    gap: 2px;
+  }
+}
+@media (width <= 850px) {
+  .movie__card {
+    padding: 120px 90px;
+  }
+}
+
+@media (width <= 768px) {
+  .movie__card {
+    padding: 100px 80px;
+  }
+}
+
+@media (width <= 700px) {
+  .movie__card {
+    padding: 100px 75px;
+  }
+} */
