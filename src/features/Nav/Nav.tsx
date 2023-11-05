@@ -93,12 +93,26 @@ const Nav = () => {
             />
             <ul className="nav__list">
               <li className="nav__item">
-                <Link to="#Popular" className="nav__link">
+                <Link
+                  to={"/popular"}
+                  className={
+                    window.location.pathname === "/popular"
+                      ? "nav__link__active"
+                      : "nav__link"
+                  }
+                >
                   Popular
                 </Link>
               </li>
               <li className="nav__item">
-                <Link to="#TopRated" className="nav__link">
+                <Link
+                  to={"/toprated"}
+                  className={
+                    window.location.pathname === "/toprated"
+                      ? "nav__link__active"
+                      : "nav__link"
+                  }
+                >
                   Toprated
                 </Link>
               </li>

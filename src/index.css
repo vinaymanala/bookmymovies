@@ -34,7 +34,11 @@ body {
   max-width: 1080px;
   margin: 0 auto;
 }
-
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .lds-facebook {
   display: inline-block;
   position: relative;

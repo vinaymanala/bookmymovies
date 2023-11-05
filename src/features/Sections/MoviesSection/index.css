@@ -1,4 +1,4 @@
-.title {
+.movie__section {
   margin-top: 3rem;
   padding: 0 10px;
 }
@@ -22,11 +22,10 @@
 .movie__grid {
   display: grid;
   margin: 0 20px;
-  justify-content: center;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  column-gap: 10px;
-  row-gap: 50px;
+  /* column-gap: 10px; */
+  row-gap: 20px;
 }
 
 .movie__card {
@@ -64,6 +63,18 @@
   right: 0%;
 }
 
+.btn__viewall {
+  margin-right: 5%;
+  cursor: pointer;
+}
+
+.resultNotFound {
+  display: grid;
+  margin-top: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (width <= 720px) {
   .left__arrow,
   .right__arrow {
@@ -74,9 +85,6 @@
     margin: 10px 0;
     overflow-x: scroll;
     gap: 10px;
-  }
-  .movie__card > img {
-    width: 180px;
   }
 
   .movie__grid {
@@ -95,47 +103,3 @@
     row-gap: 50px;
   }
 }
-/* .movies__content {
-  padding: 1.5rem;
-}
-
-.title {
-  font-size: 1.25rem;
-}
-
-
-
-.movie__card {
-  padding: 140px 120px;
-  background-color: var(--secondaryColor);
-}
-
-@media (width <= 1035px) {
-  .movie__card {
-    padding: 120px 110px;
-  }
-}
-
-@media (width <= 958px) {
-  .movie__card {
-    padding: 120px 100px;
-    gap: 2px;
-  }
-}
-@media (width <= 850px) {
-  .movie__card {
-    padding: 120px 90px;
-  }
-}
-
-@media (width <= 768px) {
-  .movie__card {
-    padding: 100px 80px;
-  }
-}
-
-@media (width <= 700px) {
-  .movie__card {
-    padding: 100px 75px;
-  }
-} */

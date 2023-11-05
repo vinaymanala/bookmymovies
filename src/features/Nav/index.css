@@ -41,6 +41,13 @@ a {
   transition: all 0.3s;
 }
 
+.nav__link__active {
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--primaryColor);
+  transition: all 0.3s;
+}
+
 .nav__link:hover {
   color: var(--primaryColor);
 }
