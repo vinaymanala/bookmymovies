@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getPopularMoviesByIndex } from "./PopularMoviesSlice";
