@@ -82,15 +82,17 @@ const Nav = () => {
           <Link to="/" className="logo">
             bmym
           </Link>
-          <SearchMovies />
+          {window.location.pathname === "/" ? <SearchMovies /> : null}
 
           <nav className="nav">
-            <input
-              type="search"
-              className="searchbtn__mobile"
-              placeholder="Search movies..."
-              onChange={handleSearch}
-            />
+            {window.location.pathname === "/" ? (
+              <input
+                type="search"
+                className="searchbtn__mobile"
+                placeholder="Search movies..."
+                onChange={handleSearch}
+              />
+            ) : null}
             <ul className="nav__list">
               <li className="nav__item">
                 <Link
