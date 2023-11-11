@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import searchReducer from "../features/Nav/SearchSlice";
+import searchReducer from "../features/ui/Nav/SearchSlice";
 import moviesReducer from "../features/Sections/MoviesSection/MoviesSlice";
 import popularMoviesReducer from "../features/Sections/PopularMoviesSection/PopularMoviesSlice";
 import topratedMoviesReducer from "../features/Sections/TopRatedMoviesSection/TopRatedMoviesSlice";

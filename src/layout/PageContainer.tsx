@@ -1,4 +1,4 @@
-import Nav from "../features/Nav";
+import Nav from "../features/ui/Nav";
 import "../index.css";
 
 type PageContainerProps = { children: React.ReactNode };

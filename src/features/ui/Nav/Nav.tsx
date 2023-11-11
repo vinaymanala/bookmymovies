@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../utils/hooks";
+import { useAppDispatch } from "../../../utils/hooks";
 import {
   getMoviesByName,
   setIsLoading,
@@ -62,12 +62,12 @@ const Nav = () => {
     }, 4000);
   };
 
-  const SearchMovies = () => {
+  const SearchMovies = ({ cls }: { cls: string }) => {
     return (
       <>
         <input
           type="search"
-          className="searchbtn"
+          className={cls}
           placeholder="Search movies..."
           onChange={handleSearch}
         />
@@ -82,17 +82,20 @@ const Nav = () => {
           <Link to="/" className="logo">
             bmym
           </Link>
-          {window.location.pathname === "/" ? <SearchMovies /> : null}
+          {window.location.pathname === "/" ? (
+            <SearchMovies cls={"searchbtn"} />
+          ) : null}
 
           <nav className="nav">
             {window.location.pathname === "/" ? (
-              <input
-                type="search"
-                className="searchbtn__mobile"
-                placeholder="Search movies..."
-                onChange={handleSearch}
-              />
-            ) : null}
+              <SearchMovies cls={"searchbtn__mobile"} />
+            ) : // <input
+            //   type="search"
+            //   className="searchbtn__mobile"
+            //   placeholder="Search movies..."
+            //   onChange={handleSearch}
+            // />
+            null}
             <ul className="nav__list">
               <li className="nav__item">
                 <Link

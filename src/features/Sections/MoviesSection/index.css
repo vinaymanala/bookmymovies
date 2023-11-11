@@ -30,6 +30,7 @@
 
 .movie__card {
   width: 200px;
+  aspect-ratio: 1 / 2;
 }
 
 .movie__card > img {

@@ -10,6 +10,12 @@ export type MoviesListProps = {
   data: any;
   title: String;
 };
+
+export type MovieCardProps = {
+  id: number;
+  poster_path: string;
+  original_title: string;
+};
 export type Data = {
   results: null | Result[];
   total_pages: number;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { PaginationProps } from "../../utils/types";
-import { useAppDispatch } from "../../utils/hooks";
-import { setPopularCurrentPage } from "../Sections/PopularMoviesSection/PopularMoviesSlice";
+import { PaginationProps } from "../../../utils/types";
+import { useAppDispatch } from "../../../utils/hooks";
+import { setPopularCurrentPage } from "../../Sections/PopularMoviesSection/PopularMoviesSlice";
 import "./index.css";
-import { setTopRatedCurrentPage } from "../Sections/TopRatedMoviesSection/TopRatedMoviesSlice";
+import { setTopRatedCurrentPage } from "../../Sections/TopRatedMoviesSection/TopRatedMoviesSlice";
 const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
   const [current, setCurrent] = useState<number>(currentPage);
   const [paginationList, setPaginationList] = useState<number[]>([]);

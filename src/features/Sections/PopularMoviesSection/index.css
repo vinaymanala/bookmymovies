@@ -1,5 +1,53 @@
-@import url("../MoviesSection/index.css");
-
-.popular__section {
+.popularmovie__section {
   margin-top: 1.5rem;
+  padding: 0 10px;
+}
+
+.section__title {
+  margin-left: 1rem;
+}
+
+.popularmovie__title {
+  font-size: 500;
+  font-weight: normal;
+  text-wrap: balance;
+}
+
+.popularmovie__grid {
+  display: grid;
+  margin: 0 20px;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  /* column-gap: 10px; */
+  /* row-gap: 20px; */
+}
+
+.popularmovie__card {
+  width: 10rem;
+  aspect-ratio: 1 / 1.9;
+}
+
+.popularmovie__card > img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
+}
+
+@media (width <= 425px) {
+  .section__title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (width <= 425px) {
+  .popularmovie__card {
+    width: 7.5rem;
+    aspect-ratio: 1 / 2;
+  }
+
+  .popularmovie__grid {
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    column-gap: 2px;
+  }
 }

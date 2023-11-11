@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import "./index.css";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getTopRatedMoviesByIndex } from "./TopRatedMoviesSlice";
-import Loader from "../../Loader";
+import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
-import Pagination from "../../Pagination";
+import Pagination from "../../ui/Pagination";
+import { TopRatedMovieCard } from "../../ui/MovieCard";
 
 const TopTRatedMoviesSection = () => {
   const { index, data, isMoviesLoading } = useAppSelector(
@@ -28,19 +29,17 @@ const TopTRatedMoviesSection = () => {
         {isMoviesLoading ? (
           <Loader />
         ) : (
-          <div className="movie__grid">
+          <div className="popularmovie__grid">
             {data &&
               data.results?.map(
                 (movie: Result, id: number) =>
                   movie?.poster_path &&
                   movie?.original_title && (
-                    <div key={id} className="movie__card">
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                        alt={movie?.original_title}
-                      />
-                      <h5 className="movie__title">{movie?.original_title}</h5>
-                    </div>
+                    <TopRatedMovieCard
+                      id={id}
+                      poster_path={movie?.poster_path}
+                      original_title={movie?.original_title}
+                    />
                   )
               )}
           </div>

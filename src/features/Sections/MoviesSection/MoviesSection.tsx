@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getMovies, setIsMoviesLoading } from "./MoviesSlice";
 import { MoviesListProps, Result } from "../../../utils/types";
-import Loader from "../../Loader";
+import Loader from "../../ui/Loader";
+import { MovieCard } from "../../ui/MovieCard";
 
 const MoviesSection = () => {
   const popularMoviesRef = useRef<any>();
@@ -58,13 +59,11 @@ const MoviesSection = () => {
                 (movie: Result, id: number) =>
                   movie?.poster_path &&
                   movie?.original_title && (
-                    <div key={id} className="movie__card">
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                        alt={movie?.original_title}
-                      />
-                      <h5 className="movie__title">{movie?.original_title}</h5>
-                    </div>
+                    <MovieCard
+                      id={id}
+                      poster_path={movie?.poster_path}
+                      original_title={movie?.original_title}
+                    />
                   )
               )}
               {data.length ? (
@@ -108,13 +107,13 @@ const MoviesSection = () => {
                 (movie: Result, id: number) =>
                   movie?.poster_path &&
                   movie?.original_title && (
-                    <div key={id} className="movie__card">
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                        alt={movie?.original_title}
+                    <Suspense fallback={"Loading.."}>
+                      <MovieCard
+                        id={id}
+                        poster_path={movie?.poster_path}
+                        original_title={movie?.original_title}
                       />
-                      <h5 className="movie__title">{movie?.original_title}</h5>
-                    </div>
+                    </Suspense>
                   )
               )}
               {data.length ? (
@@ -140,13 +139,11 @@ const MoviesSection = () => {
             (movie: Result, id: number) =>
               movie?.poster_path &&
               movie?.original_title && (
-                <div key={id} className="movie__card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                    alt={movie?.original_title}
-                  />
-                  <h5 className="movie__title">{movie?.original_title}</h5>
-                </div>
+                <MovieCard
+                  id={id}
+                  poster_path={movie?.poster_path}
+                  original_title={movie?.original_title}
+                />
               )
           )
         ) : (
