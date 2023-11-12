@@ -39,6 +39,63 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+/* Movie Grid Styling */
+.gridmovie__section {
+  margin-top: 1.5rem;
+  padding: 0 10px;
+}
+
+.section__title {
+  margin-left: 1rem;
+}
+
+.gridmovie__title {
+  font-size: 500;
+  font-weight: normal;
+  text-wrap: balance;
+}
+
+.gridmovie__grid {
+  display: grid;
+  margin: 0 20px;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  /* column-gap: 10px; */
+  /* row-gap: 20px; */
+}
+
+.gridmovie__card {
+  width: 10rem;
+  aspect-ratio: 1 / 1.9;
+}
+
+.gridmovie__card > img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  margin-bottom: 0.5rem;
+}
+
+@media (width <= 425px) {
+  .gridmovie__title {
+    font-size: 1rem;
+  }
+}
+
+@media (width <= 425px) {
+  .gridmovie__card {
+    width: 7.5rem;
+    aspect-ratio: 1 / 2;
+  }
+
+  .gridmovie__grid {
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    column-gap: 2px;
+  }
+}
+
+/* Loader styling */
 .lds-facebook {
   display: inline-block;
   position: relative;

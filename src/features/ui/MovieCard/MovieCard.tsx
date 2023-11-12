@@ -22,12 +22,12 @@ export const PopularMovieCard = ({
   original_title,
 }: MovieCardProps) => {
   return (
-    <div key={id} className="popularmovie__card">
+    <div key={id} className="gridmovie__card">
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
-      <h5 className="popularmovie__title">{original_title}</h5>
+      <h5 className="gridmovie__title">{original_title}</h5>
     </div>
   );
 };
@@ -38,12 +38,12 @@ export const TopRatedMovieCard = ({
   original_title,
 }: MovieCardProps) => {
   return (
-    <div key={id} className="popularmovie__card">
+    <div key={id} className="gridmovie__card">
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
-      <h5 className="popularmovie__title">{original_title}</h5>
+      <h5 className="gridmovie__title">{original_title}</h5>
     </div>
   );
 };

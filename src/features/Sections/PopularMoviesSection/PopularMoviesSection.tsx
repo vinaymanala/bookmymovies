@@ -19,7 +19,7 @@ const PopularMoviesSection = () => {
 
   return (
     <React.Fragment>
-      <div className="popularmovie__section">
+      <div className="gridmovie__section">
         <div className="flex" style={{ marginBottom: "1rem" }}>
           <h3 className="section__title">{"Popular Movies"}</h3>
           {!isMoviesLoading && (
@@ -29,7 +29,7 @@ const PopularMoviesSection = () => {
         {isMoviesLoading ? (
           <Loader />
         ) : (
-          <div className="popularmovie__grid">
+          <div className="gridmovie__grid">
             {data &&
               data.results?.map(
                 (movie: Result, id: number) =>
