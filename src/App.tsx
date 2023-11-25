@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import TopRatedMovies from "./pages/TopRated";
 import PopularMovies from "./pages/Popular";
+import MovieDetails from "./pages/MovieDetails";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/toprated" element={<TopRatedMovies />} />
         <Route path="/popular" element={<PopularMovies />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </BrowserRouter>
   );
