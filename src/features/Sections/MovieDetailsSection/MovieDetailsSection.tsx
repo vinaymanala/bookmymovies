@@ -4,6 +4,7 @@ import "./index.css";
 import { RootState } from "../../../utils";
 import { useParams } from "react-router-dom";
 import { getMovieDetails, setIsLoading } from "./MovieDetailsSlice";
+import Loader from "../../ui/Loader";
 
 const MovieDetailsSection = () => {
   const { isLoading, movie } = useAppSelector(
@@ -123,10 +124,14 @@ const MovieDetailsSection = () => {
           />
         )}
       </Suspense>
-      <div className="moviedetails__container">
-        <MovieCard />
-        <MovieDetails />
-      </div>
+      {movie?.original_title ? (
+        <div className="moviedetails__container">
+          <MovieCard />
+          <MovieDetails />
+        </div>
+      ) : (
+        <Loader />
+      )}
       <AboutMovieContainer />
     </div>
   );
