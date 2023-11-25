@@ -72,12 +72,14 @@ const MovieDetailsSection = () => {
           <div className="genre__info">
             Genre:
             {movie?.genres &&
-              movie?.genres.map((genre) => <span>{genre?.name}</span>)}
+              movie?.genres.map((genre, id: number) => (
+                <span key={id}>{genre?.name}</span>
+              ))}
           </div>
           <div className="language__info">
             Available in:{" "}
-            {movie?.spoken_languages.map((lang) => (
-              <span>{lang?.name}</span>
+            {movie?.spoken_languages.map((lang, id: number) => (
+              <span key={id}>{lang?.name}</span>
             ))}
           </div>
         </div>

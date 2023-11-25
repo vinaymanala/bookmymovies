@@ -120,18 +120,6 @@
 
 @media (width <= 720px) {
   .moviedetails__container {
-    width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .moviedetails__about__container {
-    margin-left: 12px;
-    margin-right: 12px;
-  }
-}
-
-@media (width <= 425px) {
-  .moviedetails__container {
     display: flex;
     flex-direction: column;
     margin: 20px auto;
