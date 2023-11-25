@@ -3,6 +3,7 @@ import searchReducer from "../features/ui/Nav/SearchSlice";
 import moviesReducer from "../features/Sections/MoviesSection/MoviesSlice";
 import popularMoviesReducer from "../features/Sections/PopularMoviesSection/PopularMoviesSlice";
 import topratedMoviesReducer from "../features/Sections/TopRatedMoviesSection/TopRatedMoviesSlice";
+import movieDetailReducer from "../features/Sections/MovieDetailsSection/MovieDetailsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     movies: moviesReducer,
     popular: popularMoviesReducer,
     toprated: topratedMoviesReducer,
+    movie: movieDetailReducer,
   },
 });
 

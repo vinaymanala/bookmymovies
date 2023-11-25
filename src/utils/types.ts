@@ -1,6 +1,7 @@
 //types
 
 export type Result = {
+  id: number;
   poster_path: any;
   original_title: string | undefined;
   results: null | Result[];
