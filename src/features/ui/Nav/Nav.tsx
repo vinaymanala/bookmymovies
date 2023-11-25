@@ -41,25 +41,25 @@ const Nav = () => {
     }
     controllerRef.current = new AbortController();
     const signal = controllerRef.current.signal;
-    dispatch(getMoviesByName({ value, signal }));
+    setTimeout(() => dispatch(getMoviesByName({ value, signal })), 2000);
   };
 
   // handle search movies by keywords
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setIsLoading(true));
     dispatch(setQuery(e.target.value));
-    setTimeout(() => {
-      const { value } = e.target as typeof e.target & {
-        value: string;
-      };
-      if (value !== "") {
-        setDispatchSearchCall(value);
-      } else {
-        dispatch(setIsLoading(false));
-        dispatch(setResults([]));
-        dispatch(setQuery(""));
-      }
-    }, 4000);
+    // setTimeout(() => {
+    const { value } = e.target as typeof e.target & {
+      value: string;
+    };
+    if (value !== "") {
+      setDispatchSearchCall(value);
+    } else {
+      dispatch(setIsLoading(false));
+      dispatch(setResults([]));
+      dispatch(setQuery(""));
+    }
+    // }, 4000);
   };
 
   const SearchMovies = ({ cls }: { cls: string }) => {

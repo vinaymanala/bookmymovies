@@ -40,6 +40,25 @@ body {
   align-items: center;
 }
 
+.btn {
+  cursor: pointer;
+  outline: 0;
+  width: 125px;
+  padding: 12px 0;
+  color: inherit;
+  background-color: var(--ternaryColor);
+  border-radius: 15px;
+  border-color: inherit;
+  font-size: medium;
+  box-shadow: none;
+}
+
+.btn:focus {
+  color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  transition: all 0.3s ease-in;
+}
+
 /* Movie Grid Styling */
 .gridmovie__section {
   margin-top: 1.5rem;
@@ -61,11 +80,10 @@ body {
   margin: 0 20px;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  /* column-gap: 10px; */
-  /* row-gap: 20px; */
 }
 
 .gridmovie__card {
+  cursor: pointer;
   width: 10rem;
   aspect-ratio: 1 / 1.9;
 }

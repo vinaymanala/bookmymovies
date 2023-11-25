@@ -1,12 +1,21 @@
 import { MovieCardProps } from "../../../utils/types";
+import { useNavigate } from "react-router-dom";
 
 export const MovieCard = ({
   id,
   poster_path,
   original_title,
 }: MovieCardProps) => {
+  const navigate = useNavigate();
   return (
-    <div key={id} className="movie__card">
+    <div
+      key={id}
+      className="movie__card"
+      onClick={() => {
+        navigate(`/movie/${id}`);
+        console.log(`${id}`);
+      }}
+    >
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
@@ -21,8 +30,16 @@ export const PopularMovieCard = ({
   poster_path,
   original_title,
 }: MovieCardProps) => {
+  const navigate = useNavigate();
   return (
-    <div key={id} className="gridmovie__card">
+    <div
+      key={id}
+      className="gridmovie__card"
+      onClick={() => {
+        navigate(`/movie/${id}`);
+        console.log(`${id}`);
+      }}
+    >
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
@@ -37,8 +54,16 @@ export const TopRatedMovieCard = ({
   poster_path,
   original_title,
 }: MovieCardProps) => {
+  const navigate = useNavigate();
   return (
-    <div key={id} className="gridmovie__card">
+    <div
+      key={id}
+      className="gridmovie__card"
+      onClick={() => {
+        navigate(`/movie/${id}`);
+        console.log(`${id}`);
+      }}
+    >
       <img
         src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
