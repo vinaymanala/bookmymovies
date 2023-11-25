@@ -32,11 +32,11 @@ const PopularMoviesSection = () => {
           <div className="gridmovie__grid">
             {data &&
               data.results?.map(
-                (movie: Result, id: number) =>
+                (movie: Result) =>
                   movie?.poster_path &&
                   movie?.original_title && (
                     <PopularMovieCard
-                      id={id}
+                      id={movie?.id}
                       poster_path={movie?.poster_path}
                       original_title={movie?.original_title}
                     />

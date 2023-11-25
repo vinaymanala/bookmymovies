@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
@@ -55,16 +55,14 @@ const MoviesSection = () => {
                   {"<"}
                 </button>
               ) : null}
-              {data?.map(
-                (movie: Result, id: number) =>
-                  movie?.poster_path &&
-                  movie?.original_title && (
-                    <MovieCard
-                      id={id}
-                      poster_path={movie?.poster_path}
-                      original_title={movie?.original_title}
-                    />
-                  )
+              {data?.map((movie: Result) =>
+                movie?.poster_path && movie?.original_title ? (
+                  <MovieCard
+                    id={movie?.id}
+                    poster_path={movie?.poster_path}
+                    original_title={movie?.original_title}
+                  />
+                ) : null
               )}
               {data.length ? (
                 <button
@@ -103,18 +101,14 @@ const MoviesSection = () => {
                   {"<"}
                 </button>
               ) : null}
-              {data?.map(
-                (movie: Result, id: number) =>
-                  movie?.poster_path &&
-                  movie?.original_title && (
-                    <Suspense fallback={"Loading.."}>
-                      <MovieCard
-                        id={id}
-                        poster_path={movie?.poster_path}
-                        original_title={movie?.original_title}
-                      />
-                    </Suspense>
-                  )
+              {data?.map((movie: Result) =>
+                movie?.poster_path && movie?.original_title ? (
+                  <MovieCard
+                    id={movie?.id}
+                    poster_path={movie?.poster_path}
+                    original_title={movie?.original_title}
+                  />
+                ) : null
               )}
               {data.length ? (
                 <button
@@ -135,16 +129,14 @@ const MoviesSection = () => {
     return (
       <div className="movie__grid">
         {results?.length ? (
-          results.map(
-            (movie: Result, id: number) =>
-              movie?.poster_path &&
-              movie?.original_title && (
-                <MovieCard
-                  id={id}
-                  poster_path={movie?.poster_path}
-                  original_title={movie?.original_title}
-                />
-              )
+          results.map((movie: Result) =>
+            movie?.poster_path && movie?.original_title ? (
+              <MovieCard
+                id={movie?.id}
+                poster_path={movie?.poster_path}
+                original_title={movie?.original_title}
+              />
+            ) : null
           )
         ) : (
           <p className="resultNotFound">No results found</p>
