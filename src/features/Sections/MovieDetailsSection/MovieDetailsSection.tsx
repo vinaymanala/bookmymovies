@@ -91,16 +91,18 @@ const MovieDetailsSection = () => {
   const AboutMovieContainer = () => {
     return (
       <div className="moviedetails__about__container">
-        <h3 className="details__title"> About</h3>
+        {movie?.overview && <h3 className="details__title"> About</h3>}
         <div className="moviedetails__about__section">
           {movie?.tagline && (
             <i>
               <q>{movie?.tagline}</q>
             </i>
           )}
-          <div className="moviedetails__about__paragraph">
-            {movie?.overview}
-          </div>
+          {movie?.overview && (
+            <div className="moviedetails__about__paragraph">
+              {movie?.overview}
+            </div>
+          )}
         </div>
       </div>
     );
