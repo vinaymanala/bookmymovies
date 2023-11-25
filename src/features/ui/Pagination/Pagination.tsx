@@ -22,8 +22,8 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
   const handlePrevClick = () => {
     setCurrent(current - 1);
     window.location.pathname === "/popular"
-      ? dispatch(setPopularCurrentPage(current + 1))
-      : dispatch(setTopRatedCurrentPage(current + 1));
+      ? dispatch(setPopularCurrentPage(current - 1))
+      : dispatch(setTopRatedCurrentPage(current - 1));
   };
 
   const handleNextClick = () => {
