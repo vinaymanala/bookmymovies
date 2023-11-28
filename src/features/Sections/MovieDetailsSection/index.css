@@ -163,6 +163,7 @@
   }
   .genre__info,
   .language__info {
+    /* wrap the movie details in mobile view */
     flex-flow: wrap;
   }
 
