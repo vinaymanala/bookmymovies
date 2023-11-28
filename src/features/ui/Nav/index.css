@@ -132,16 +132,19 @@ input.searchbtn:focus {
   }
 
   .searchbtn__mobile {
-    outline: none;
+    outline: 0;
+    background-color: var(--secondaryColor);
+    color: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 90%;
     font-size: 1rem;
     font-weight: normal;
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     margin: 0.5rem auto;
-    border-radius: 5px;
+    border: 0.5px solid var(--primaryColor);
+    border-radius: 8px;
   }
 
   .nav__link {
