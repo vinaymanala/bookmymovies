@@ -14,7 +14,7 @@ const SeatGridSection = ({ img }: SeatGridSectionProp) => {
     []
   );
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(true);
-  const [seatSelection, setSeatSelection] = useState<number>(0);
+  const [seatSelection, setSeatSelection] = useState<number>(1);
   const selectionOfSeats = Array.from({ length: 10 }, (_, index) => index + 1);
   const handleModal = () => {
     dispatch(setSeatCount(seatSelection));
