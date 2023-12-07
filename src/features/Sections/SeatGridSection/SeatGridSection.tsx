@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import SeatGridStyles from "../../ui/SeatGridStyles";
 import { SelectedSeatProp } from "../../../utils/types";
 import "./index.css";
