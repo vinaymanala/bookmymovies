@@ -13,7 +13,6 @@ export const MovieCard = ({
       className="movie__card"
       onClick={() => {
         navigate(`/movie/${id}`);
-        console.log(`${id}`);
       }}
     >
       <img
@@ -37,7 +36,6 @@ export const PopularMovieCard = ({
       className="gridmovie__card"
       onClick={() => {
         navigate(`/movie/${id}`);
-        console.log(`${id}`);
       }}
     >
       <img
@@ -61,7 +59,6 @@ export const TopRatedMovieCard = ({
       className="gridmovie__card"
       onClick={() => {
         navigate(`/movie/${id}`);
-        console.log(`${id}`);
       }}
     >
       <img

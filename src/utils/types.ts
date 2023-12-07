@@ -40,3 +40,15 @@ export type PaginationProps = {
   currentPage: number;
   totalPages: number;
 };
+
+export type SelectedSeatProp = {
+  id: number;
+  seat: string;
+  selected: boolean;
+};
+
+export type SeatGridProp = {
+  id: number;
+  seat: string;
+  selected: boolean;
+};

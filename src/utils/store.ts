@@ -4,6 +4,7 @@ import moviesReducer from "../features/Sections/MoviesSection/MoviesSlice";
 import popularMoviesReducer from "../features/Sections/PopularMoviesSection/PopularMoviesSlice";
 import topratedMoviesReducer from "../features/Sections/TopRatedMoviesSection/TopRatedMoviesSlice";
 import movieDetailReducer from "../features/Sections/MovieDetailsSection/MovieDetailsSlice";
+import bookingReducer from "../features/Sections/SeatGridSection/SeatGridSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     popular: popularMoviesReducer,
     toprated: topratedMoviesReducer,
     movie: movieDetailReducer,
+    booking: bookingReducer,
   },
 });
 

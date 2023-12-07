@@ -120,6 +120,7 @@ input.searchbtn:focus {
     padding: 10px 0 25px;
     background-color: inherit;
     transform: translateY(-150%);
+    z-index: 2;
   }
 
   .nav__list {

@@ -4,6 +4,7 @@ import About from "./pages/About";
 import TopRatedMovies from "./pages/TopRated";
 import PopularMovies from "./pages/Popular";
 import MovieDetails from "./pages/MovieDetails";
+import Booking from "./pages/Booking";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/toprated" element={<TopRatedMovies />} />
         <Route path="/popular" element={<PopularMovies />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/movie/:id/:img/booking" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   );

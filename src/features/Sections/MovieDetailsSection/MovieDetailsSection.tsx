@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../utils/hooks";
 import "./index.css";
 import { RootState } from "../../../utils";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails, setIsLoading } from "./MovieDetailsSlice";
 import Loader from "../../ui/Loader";
 
@@ -11,6 +11,7 @@ const MovieDetailsSection = () => {
     (state: RootState) => state.movie
   );
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id }: any = useParams();
   const [movieId, setMovieId] = useState<number | null>(parseInt(id));
@@ -84,7 +85,14 @@ const MovieDetailsSection = () => {
             ))}
           </div>
         </div>
-        <button className="btn">Book Now</button>
+        <button
+          className="btn"
+          onClick={() => {
+            navigate(`/movie/${id}${movie?.backdrop_path}/booking`);
+          }}
+        >
+          Book Now
+        </button>
       </div>
     );
   };
