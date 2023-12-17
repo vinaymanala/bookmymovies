@@ -88,4 +88,14 @@
 }
 
 @media (width <= 425px) {
+  .booking__seatselection {
+    margin-bottom: 40px;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: scroll;
+  }
+  .booking__modal {
+    width: 350px;
+    margin: 40% auto;
+  }
 }

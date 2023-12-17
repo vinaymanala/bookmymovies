@@ -68,7 +68,7 @@
   gap: 21px;
 }
 
-@media (width <= 425px) {
+@media (width <= 650px) {
   .seatgrid__container {
     padding: 20px;
     overflow: scroll;
