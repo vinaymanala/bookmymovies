@@ -25,7 +25,7 @@ const Nav = () => {
       headerEl?.classList.remove("header--scrolled");
     }
   });
-
+  const searchText = localStorage.getItem("searchText") || "";
   useEffect(() => {
     setNavEl(document.querySelector(".nav"));
     setHamburgerEl(document.querySelector(".hamburger"));
@@ -33,7 +33,15 @@ const Nav = () => {
     hamburgerEl?.addEventListener("click", () => {
       navEl?.classList.toggle("nav--open");
     });
-  }, [navEl]);
+    dispatch(setQuery(searchText));
+    document.querySelector("input")?.setAttribute("value", searchText);
+  }, [navEl, searchText]);
+
+  const useDebounce = (func: () => void, delay: number = 2000) => {
+    setTimeout(() => {
+      func();
+    }, delay);
+  };
 
   const setDispatchSearchCall = (value: string) => {
     if (controllerRef.current) {
@@ -41,7 +49,7 @@ const Nav = () => {
     }
     controllerRef.current = new AbortController();
     const signal = controllerRef.current.signal;
-    setTimeout(() => dispatch(getMoviesByName({ value, signal })), 2000);
+    useDebounce(() => dispatch(getMoviesByName({ value, signal })));
   };
 
   // handle search movies by keywords
@@ -52,12 +60,14 @@ const Nav = () => {
     const { value } = e.target as typeof e.target & {
       value: string;
     };
+    localStorage.setItem("searchText", value);
     if (value !== "") {
       setDispatchSearchCall(value);
     } else {
       dispatch(setIsLoading(false));
       dispatch(setResults([]));
       dispatch(setQuery(""));
+      localStorage.setItem("searchText", "");
     }
     // }, 4000);
   };
@@ -66,10 +76,11 @@ const Nav = () => {
     return (
       <>
         <input
-          type="search"
+          type="text"
           className={cls}
           placeholder="Search movies..."
           onChange={handleSearch}
+          size={30}
         />
       </>
     );

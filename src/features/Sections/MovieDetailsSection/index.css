@@ -10,6 +10,14 @@
   /* box-shadow: 0px 40px 14px var(--secondaryColor); */
 }
 
+.moviedetails__nobanner {
+  display: block;
+  width: 100%;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  aspect-ratio: 1.75;
+}
+
 .moviedetails__container {
   display: flex;
   justify-content: center;

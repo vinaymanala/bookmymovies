@@ -20,10 +20,9 @@ const MovieDetailsSection = () => {
     // fetch movie details based on id
     setIsLoading(true);
     dispatch(getMovieDetails(movieId));
-    console.log(isLoading, movie);
     return () => {
       setMovieId(null);
-      dispatch(getMovieDetails(null));
+      // dispatch(getMovieDetails(null));
     };
   }, []);
 
@@ -50,7 +49,7 @@ const MovieDetailsSection = () => {
         <h3 className="details__title">{movie?.original_title}</h3>
         <div className="details__info">
           <div>
-            {movie?.vote_average && movie?.vote_count && (
+            {movie?.vote_average && movie?.vote_count ? (
               <div className="ratings__info">
                 {movie?.vote_average !== null && (
                   <h3 className="">
@@ -69,7 +68,7 @@ const MovieDetailsSection = () => {
                   </h3>
                 )}
               </div>
-            )}
+            ) : null}
           </div>
           <div className="genre__info">
             Genre:
@@ -125,12 +124,19 @@ const MovieDetailsSection = () => {
   return (
     <div className="moviedetails__section">
       <Suspense fallback={<BannerLoader />}>
-        {!isLoading && (
-          <img
-            className="moviedetails__banner"
-            src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-          />
-        )}
+        {!isLoading &&
+          (movie?.backdrop_path ? (
+            <img
+              className="moviedetails__banner"
+              src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+            />
+          ) : (
+            <img
+              className="moviedetails__nobanner"
+              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+              alt={movie?.original_title}
+            />
+          ))}
       </Suspense>
       {movie?.original_title ? (
         <div className="moviedetails__container">

@@ -109,6 +109,10 @@
     width: 150px;
   }
 
+  .movie__card {
+    aspect-ratio: 1 / 1.05;
+  }
+
   .movie__grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     row-gap: 50px;

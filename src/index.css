@@ -103,7 +103,7 @@ body {
 
 @media (width <= 425px) {
   .gridmovie__card {
-    width: 7.5rem;
+    width: 8.5rem;
     aspect-ratio: 1 / 2;
   }
 
