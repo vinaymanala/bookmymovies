@@ -14,7 +14,6 @@ const TopTRatedMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    let index = 1;
     dispatch(getTopRatedMoviesByIndex(index));
   }, [index]);
 

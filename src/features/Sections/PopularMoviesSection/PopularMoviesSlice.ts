@@ -36,7 +36,7 @@ export const getPopularMoviesByIndex = createAsyncThunk(
         (show: any) => show?.tmdb_type === "movie"
       );
     } catch (error: any) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(index + error.message);
       console.log(error);
     }
   }

@@ -14,7 +14,6 @@ const PopularMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    let index = 1;
     dispatch(getPopularMoviesByIndex(index));
   }, [index]);
 

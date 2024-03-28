@@ -25,10 +25,10 @@ type MovieDetail = {
   spoken_languages: LanguageInfo[];
   poster: string;
   backdrop: string;
-  critic_score: number;
-  user_rating: number;
+  critic_score: number | null;
+  user_rating: number | null;
   genre_names: [];
-  relevance_percentile: number;
+  relevance_percentile: number | null;
   original_language: string;
   plot_overview: string;
   type: string;
@@ -56,6 +56,13 @@ const initialState: initialStateProps = {
     spoken_languages: [],
     poster: "",
     backdrop: "",
+    critic_score: null,
+    user_rating: null,
+    genre_names: [],
+    relevance_percentile: null,
+    original_language: "",
+    plot_overview: "",
+    type: "",
   },
 };
 
