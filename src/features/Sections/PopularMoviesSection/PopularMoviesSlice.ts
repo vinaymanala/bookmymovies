@@ -3,6 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ResultData, ResultsPerPage } from "../../../utils/types";
 const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 const initialState: ResultsPerPage = {
   data: {
@@ -20,17 +21,20 @@ export const getPopularMoviesByIndex = createAsyncThunk(
   "popular/getPopularMoviesByIndex",
   async (index: number, thunkApi) => {
     try {
-      const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${index}`;
+      // const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${index}`;
+      const url = `https://api.watchmode.com/v1/releases/?apiKey=${API_KEY}`;
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
+          // Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
         },
       };
       const response = await axios.get(url, options);
 
-      return response.data;
+      return response.data?.releases.filter(
+        (show: any) => show?.tmdb_type === "movie"
+      );
     } catch (error: any) {
       return thunkApi.rejectWithValue(error.message);
       console.log(error);
@@ -63,11 +67,12 @@ export const popularMoviesReducer = createSlice({
       })
       .addCase(
         getPopularMoviesByIndex.fulfilled,
-        (state = initialState, action: PayloadAction<ResultData>) => {
+        (state = initialState, action: PayloadAction<any>) => {
           state.isMoviesLoading = false;
-          const { results, total_pages } = action.payload;
-          state.data.results = results;
-          state.data.total_pages = total_pages;
+          // const { results, total_pages } = action.payload;
+          const data = action.payload;
+          state.data.results = data;
+          // state.data.total_pages = total_pages;
         }
       )
       .addCase(

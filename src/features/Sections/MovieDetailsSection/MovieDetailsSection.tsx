@@ -31,10 +31,7 @@ const MovieDetailsSection = () => {
       <React.Fragment>
         {!isLoading ? (
           <div className="moviedetails__card">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-              alt={movie?.original_title}
-            />
+            <img src={movie?.poster} alt={movie?.original_title} />
           </div>
         ) : (
           <MovieCardLoader />
@@ -49,21 +46,23 @@ const MovieDetailsSection = () => {
         <h3 className="details__title">{movie?.original_title}</h3>
         <div className="details__info">
           <div>
-            {movie?.vote_average && movie?.vote_count ? (
+            {movie?.user_rating && movie?.user_rating ? (
               <div className="ratings__info">
-                {movie?.vote_average !== null && (
+                {movie?.user_rating !== null && (
                   <h3 className="">
                     Vote :{" "}
                     <span className="number__info">
-                      {(movie.vote_average * 10).toFixed(2)}%
+                      {/* {(movie.critic_score * 10).toFixed(2)}% */}
+                      {movie?.user_rating}%
                     </span>
                   </h3>
                 )}
-                {movie?.popularity !== null && (
+                {movie?.relevance_percentile !== null && (
                   <h3 className="">
                     Popularity :{" "}
                     <span className="number__info">
-                      {((movie.popularity % 1000) / 10).toFixed(2)}%
+                      {movie?.relevance_percentile}%
+                      {/* {((movie.popularity % 1000) / 10).toFixed(2)}% */}
                     </span>
                   </h3>
                 )}
@@ -72,22 +71,23 @@ const MovieDetailsSection = () => {
           </div>
           <div className="genre__info">
             Genre:
-            {movie?.genres &&
-              movie?.genres.map((genre, id: number) => (
-                <span key={id}>{genre?.name}</span>
+            {movie?.genre_names &&
+              movie?.genre_names.map((genre, id: number) => (
+                <span key={id}>{genre}</span>
               ))}
           </div>
           <div className="language__info">
             Available in:{" "}
-            {movie?.spoken_languages.map((lang, id: number) => (
+            {/* {movie?.spoken_languages.map((lang, id: number) => (
               <span key={id}>{lang?.name}</span>
-            ))}
+            ))} */}
+            {movie?.original_language}
           </div>
         </div>
         <button
           className="btn"
           onClick={() => {
-            navigate(`/movie/${id}${movie?.backdrop_path}/booking`);
+            navigate(`/movie/${id}/booking`);
           }}
         >
           Book Now
@@ -101,14 +101,14 @@ const MovieDetailsSection = () => {
       <div className="moviedetails__about__container">
         {movie?.overview && <h3 className="details__title"> About</h3>}
         <div className="moviedetails__about__section">
-          {movie?.tagline && (
+          {movie?.type && (
             <i>
-              <q>{movie?.tagline}</q>
+              <q>{movie?.type}</q>
             </i>
           )}
-          {movie?.overview && (
+          {movie?.plot_overview && (
             <div className="moviedetails__about__paragraph">
-              {movie?.overview}
+              {movie?.plot_overview}
             </div>
           )}
         </div>
@@ -125,15 +125,17 @@ const MovieDetailsSection = () => {
     <div className="moviedetails__section">
       <Suspense fallback={<BannerLoader />}>
         {!isLoading &&
-          (movie?.backdrop_path ? (
+          (movie?.backdrop ? (
             <img
               className="moviedetails__banner"
-              src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+              src={movie?.backdrop}
+              // src={`https://image.tmdb.org/t/p/original/${movie?.backdrop}`}
             />
           ) : (
             <img
               className="moviedetails__nobanner"
-              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+              src={movie?.poster}
+              // src={`https://image.tmdb.org/t/p/original/${movie?.poster}`}
               alt={movie?.original_title}
             />
           ))}

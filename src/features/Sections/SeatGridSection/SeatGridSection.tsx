@@ -8,7 +8,8 @@ type SeatGridSectionProp = {
   img: string;
 };
 
-const SeatGridSection = ({ img }: SeatGridSectionProp) => {
+// const SeatGridSection = ({ img }: SeatGridSectionProp) => {
+const SeatGridSection = () => {
   const dispatch = useAppDispatch();
   const [seatsSelected, setSeatsSelected] = useState<Array<SelectedSeatProp>>(
     []
@@ -41,7 +42,7 @@ const SeatGridSection = ({ img }: SeatGridSectionProp) => {
         </dialog>
       )}
       <SeatGridStyles
-        image={img}
+        // image={img}
         setHandlerOnSeatSelect={setSeatsSelected}
         seatsSelected={seatsSelected}
       />

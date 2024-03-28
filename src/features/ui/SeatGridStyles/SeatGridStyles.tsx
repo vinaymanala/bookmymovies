@@ -87,7 +87,6 @@ const SeatTile = ({
 };
 
 const SeatGridStyles = ({
-  image,
   setHandlerOnSeatSelect,
   seatsSelected,
 }: SeatGridStyleProp) => {
@@ -148,10 +147,20 @@ const SeatGridStyles = ({
 
   return (
     <div className="seatgrid__container">
-      <img
+      <div
+        style={{
+          display: "flex",
+          justifySelf: "center",
+          marginTop: "8px",
+          backgroundColor: "var(--ternaryColor)",
+          width: "200px",
+          height: "50px",
+        }}
+      ></div>
+      {/* <img
         className="seatgrid__screen"
         src={`https://image.tmdb.org/t/p/original/${image}`}
-      />
+      /> */}
 
       <div className="seatgrid__mainblock">
         <div className="seatgrid__rowname">

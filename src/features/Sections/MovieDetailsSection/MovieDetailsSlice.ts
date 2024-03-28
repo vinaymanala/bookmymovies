@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 type Genre = {
   name: string;
@@ -22,6 +23,15 @@ type MovieDetail = {
   tagline: string;
   overview: "";
   spoken_languages: LanguageInfo[];
+  poster: string;
+  backdrop: string;
+  critic_score: number;
+  user_rating: number;
+  genre_names: [];
+  relevance_percentile: number;
+  original_language: string;
+  plot_overview: string;
+  type: string;
 };
 
 interface initialStateProps {
@@ -44,6 +54,8 @@ const initialState: initialStateProps = {
     tagline: "",
     overview: "",
     spoken_languages: [],
+    poster: "",
+    backdrop: "",
   },
 };
 
@@ -52,12 +64,14 @@ export const getMovieDetails = createAsyncThunk(
   "movie/getMovieDetails",
   async (id: number | null, thunkApi) => {
     try {
-      const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+      // https://api.watchmode.com/v1/title/345534/details/?apiKey=YOUR_API_KEY
+      // const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+      const url = `https://api.watchmode.com/v1/title/${id}/details/?apiKey=${API_KEY}`;
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
+          // Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
         },
       };
 

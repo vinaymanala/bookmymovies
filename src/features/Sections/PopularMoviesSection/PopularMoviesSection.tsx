@@ -22,9 +22,9 @@ const PopularMoviesSection = () => {
       <div className="gridmovie__section">
         <div className="flex" style={{ marginBottom: "1rem" }}>
           <h3 className="section__title">{"Popular Movies"}</h3>
-          {!isMoviesLoading && (
+          {/* {!isMoviesLoading && (
             <Pagination currentPage={index} totalPages={data?.total_pages} />
-          )}
+          )} */}
         </div>
         {isMoviesLoading ? (
           <Loader />
@@ -33,12 +33,12 @@ const PopularMoviesSection = () => {
             {data &&
               data.results?.map(
                 (movie: Result) =>
-                  movie?.poster_path &&
-                  movie?.original_title && (
+                  movie?.poster_url &&
+                  movie?.title && (
                     <PopularMovieCard
                       id={movie?.id}
-                      poster_path={movie?.poster_path}
-                      original_title={movie?.original_title}
+                      poster_path={movie?.poster_url}
+                      original_title={movie?.title}
                     />
                   )
               )}

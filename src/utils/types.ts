@@ -5,6 +5,11 @@ export type Result = {
   poster_path: any;
   original_title: string | undefined;
   results: null | Result[];
+  title: string;
+  source_id: number;
+  poster_url: any;
+  name: string;
+  image_url: string;
 };
 
 export type MoviesListProps = {

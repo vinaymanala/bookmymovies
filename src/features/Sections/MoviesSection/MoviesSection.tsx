@@ -56,11 +56,11 @@ const MoviesSection = () => {
                 </button>
               ) : null}
               {data?.map((movie: Result) =>
-                movie?.poster_path && movie?.original_title ? (
+                movie?.poster_url && movie?.title ? (
                   <MovieCard
                     id={movie?.id}
-                    poster_path={movie?.poster_path}
-                    original_title={movie?.original_title}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
                 ) : null
               )}
@@ -102,11 +102,11 @@ const MoviesSection = () => {
                 </button>
               ) : null}
               {data?.map((movie: Result) =>
-                movie?.poster_path && movie?.original_title ? (
+                movie?.poster_url && movie?.title ? (
                   <MovieCard
                     id={movie?.id}
-                    poster_path={movie?.poster_path}
-                    original_title={movie?.original_title}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
                 ) : null
               )}
@@ -130,11 +130,11 @@ const MoviesSection = () => {
       <div className="movie__grid">
         {results?.length ? (
           results.map((movie: Result) =>
-            movie?.poster_path && movie?.original_title ? (
+            movie?.image_url && movie?.name ? (
               <MovieCard
                 id={movie?.id}
-                poster_path={movie?.poster_path}
-                original_title={movie?.original_title}
+                poster_path={movie?.image_url}
+                original_title={movie?.name}
               />
             ) : null
           )

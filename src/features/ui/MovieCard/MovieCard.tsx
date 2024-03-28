@@ -16,7 +16,8 @@ export const MovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="movie__title">{original_title}</h5>
@@ -39,7 +40,8 @@ export const PopularMovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="gridmovie__title">{original_title}</h5>
@@ -62,7 +64,8 @@ export const TopRatedMovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="gridmovie__title">{original_title}</h5>
