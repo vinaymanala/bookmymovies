@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getTopRatedMoviesByIndex } from "./TopRatedMoviesSlice";
 import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
-import Pagination from "../../ui/Pagination";
+// import Pagination from "../../ui/Pagination";
 import { TopRatedMovieCard } from "../../ui/MovieCard";
 
 const TopTRatedMoviesSection = () => {
@@ -14,6 +14,7 @@ const TopTRatedMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    let index = 1;
     dispatch(getTopRatedMoviesByIndex(index));
   }, [index]);
 

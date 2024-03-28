@@ -5,7 +5,7 @@ import { useAppSelector } from "../../../utils/hooks";
 import { RootState } from "../../../utils";
 
 type SeatGridStyleProp = {
-  image: string | undefined;
+  // image: string | undefined;
   setHandlerOnSeatSelect: React.Dispatch<
     React.SetStateAction<Array<SelectedSeatProp>>
   >;

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getPopularMoviesByIndex } from "./PopularMoviesSlice";
 import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
-import Pagination from "../../ui/Pagination";
+// import Pagination from "../../ui/Pagination";
 import { PopularMovieCard } from "../../ui/MovieCard/";
 
 const PopularMoviesSection = () => {
@@ -14,6 +14,7 @@ const PopularMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    let index = 1;
     dispatch(getPopularMoviesByIndex(index));
   }, [index]);
 

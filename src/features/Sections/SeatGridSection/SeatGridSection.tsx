@@ -4,9 +4,9 @@ import { SelectedSeatProp } from "../../../utils/types";
 import "./index.css";
 import { useAppDispatch } from "../../../utils/hooks";
 import { setSeatCount } from "./SeatGridSlice";
-type SeatGridSectionProp = {
-  img: string;
-};
+// type SeatGridSectionProp = {
+//   img: string;
+// };
 
 // const SeatGridSection = ({ img }: SeatGridSectionProp) => {
 const SeatGridSection = () => {
