@@ -65,8 +65,8 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 0rem;
-  gap: 20px;
+  margin-top: 0.5rem;
+  gap: 30px;
 }
 
 @media (width <= 650px) {
