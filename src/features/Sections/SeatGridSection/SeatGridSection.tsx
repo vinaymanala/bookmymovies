@@ -31,6 +31,10 @@ const SeatGridSection = () => {
               <button
                 className="btn"
                 onClick={() => setSeatSelection(noOfSeats)}
+                style={{
+                  borderStyle: "none",
+                  // border: "0.1px solid gray",
+                }}
               >
                 <h3>{noOfSeats}</h3>
               </button>

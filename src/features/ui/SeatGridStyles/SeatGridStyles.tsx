@@ -75,13 +75,17 @@ const SeatTile = ({
     <button
       className="seatgrid__seat"
       style={{
-        backgroundColor: selected ? "var(--primaryColor)" : "gray",
+        backgroundColor: selected
+          ? "var(--primaryColor)"
+          : "var(--ternaryColor)",
+        color: "var(--fontColor)",
       }}
       id={id.toString()}
       value={seat}
       onClick={handleOnSeatSelect}
     >
-      {selected && seatsSelected.findIndex((seats) => seats?.seat == seat) + 1}
+      {id}
+      {/* {selected && seatsSelected.findIndex((seats) => seats?.seat == seat) + 1} */}
     </button>
   );
 };
@@ -152,11 +156,21 @@ const SeatGridStyles = ({
           display: "flex",
           justifySelf: "center",
           marginTop: "8px",
+          marginBottom: "8px",
           backgroundColor: "var(--ternaryColor)",
           width: "200px",
           height: "50px",
         }}
       ></div>
+      <span
+        style={{
+          textAlign: "center",
+          fontStyle: "italic",
+          // marginTop: "0.4rem",
+        }}
+      >
+        All eyes this way please!
+      </span>
       {/* <img
         className="seatgrid__screen"
         src={`https://image.tmdb.org/t/p/original/${image}`}
