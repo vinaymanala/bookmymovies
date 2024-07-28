@@ -4,12 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getPopularMoviesByDate, setDate } from "./PopularMoviesSlice";
 import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
-// import Pagination from "../../ui/Pagination";
 import { PopularMovieCard } from "../../ui/MovieCard/";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const PopularMoviesSection = () => {
-  const { index, data, isMoviesLoading, start_date, end_date } = useAppSelector(
+  const { data, start_date, end_date } = useAppSelector(
     (state) => state.popular
   );
   const dispatch = useAppDispatch();
@@ -37,7 +36,6 @@ const PopularMoviesSection = () => {
 
   function getPopularMoviesAndShowsByDate(
     start_date: number,
-    end_date: number,
     daysMinus: number
   ) {
     const date = parseDate(start_date.toString());
@@ -67,7 +65,7 @@ const PopularMoviesSection = () => {
         <InfiniteScroll
           dataLength={data.results?.length as number}
           next={() => {
-            getPopularMoviesAndShowsByDate(start_date, end_date, 30);
+            getPopularMoviesAndShowsByDate(start_date, 30);
           }}
           hasMore={true}
           loader={<Loader />}

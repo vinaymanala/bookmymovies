@@ -4,12 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getTopRatedMoviesByDate, setDate } from "./TopRatedMoviesSlice";
 import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
-// import Pagination from "../../ui/Pagination";
 import { TopRatedMovieCard } from "../../ui/MovieCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const TopTRatedMoviesSection = () => {
-  const { index, data, isMoviesLoading, start_date, end_date } = useAppSelector(
+  const { data, start_date, end_date } = useAppSelector(
     (state) => state.toprated
   );
   const dispatch = useAppDispatch();
@@ -35,11 +34,7 @@ const TopTRatedMoviesSection = () => {
     return `${year}${month}${day}`;
   }
 
-  function getTopMoviesAndShowsByDate(
-    start_date: number,
-    end_date: number,
-    daysMinus: number
-  ) {
+  function getTopMoviesAndShowsByDate(start_date: number, daysMinus: number) {
     const date = parseDate(start_date.toString());
 
     date.setDate(date.getDate() - daysMinus);
@@ -67,7 +62,7 @@ const TopTRatedMoviesSection = () => {
         <InfiniteScroll
           dataLength={data.results?.length as number}
           next={() => {
-            getTopMoviesAndShowsByDate(start_date, end_date, 30);
+            getTopMoviesAndShowsByDate(start_date, 30);
           }}
           hasMore={true}
           loader={<Loader />}
