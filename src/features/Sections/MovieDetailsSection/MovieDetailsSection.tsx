@@ -18,6 +18,7 @@ const MovieDetailsSection = () => {
 
   useEffect(() => {
     // fetch movie details based on id
+    window.scrollTo(0, 0);
     setIsLoading(true);
     dispatch(getMovieDetails(movieId));
     return () => {
@@ -29,13 +30,14 @@ const MovieDetailsSection = () => {
   const MovieCard = () => {
     return (
       <React.Fragment>
-        {!isLoading ? (
-          <div className="moviedetails__card">
-            <img src={movie?.poster} alt={movie?.original_title} />
-          </div>
-        ) : (
+        {/* {!isLoading ? ( */}
+        <div className="moviedetails__card">
+          <img src={movie?.poster} alt={movie?.original_title} />
+        </div>
+
+        {/* ) : (
           <MovieCardLoader />
-        )}
+        )} */}
       </React.Fragment>
     );
   };
@@ -116,37 +118,70 @@ const MovieDetailsSection = () => {
     );
   };
   const BannerLoader = () => {
-    return <div className="moviedetails__banner"></div>;
+    return (
+      <div
+        className="moviedetails__banner"
+        style={{ height: "620px", backgroundColor: "var(--ternaryColor)" }}
+      >
+        <Loader />
+      </div>
+    );
   };
-  const MovieCardLoader = () => {
-    return <div className="moviedetails__card"></div>;
+  const MovieCardDetailsLoader = ({ children }: any) => {
+    const [isShown, setIsShown] = useState(false);
+    useEffect(() => {
+      const timerId = setTimeout(() => {
+        setIsShown(true);
+        console.log(isShown);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timerId);
+      };
+    }, []);
+    return <>{isShown && children}</>;
   };
+
+  const MovieBanner = () =>
+    movie?.backdrop ? (
+      <img
+        className="moviedetails__banner"
+        src={movie?.backdrop}
+        // src={`https://image.tmdb.org/t/p/original/${movie?.backdrop}`}
+      />
+    ) : (
+      <img
+        className="moviedetails__nobanner"
+        src={movie?.poster}
+        // src={`https://image.tmdb.org/t/p/original/${movie?.poster}`}
+        alt={movie?.original_title}
+      />
+    );
+
+  const MovieDetailsContainer = () =>
+    movie?.original_title && (
+      <div className="moviedetails__container">
+        <MovieCard />
+        <MovieDetails />
+      </div>
+    );
   return (
     <div className="moviedetails__section">
-      <Suspense fallback={<BannerLoader />}>
-        {!isLoading &&
-          (movie?.backdrop ? (
-            <img
-              className="moviedetails__banner"
-              src={movie?.backdrop}
-              // src={`https://image.tmdb.org/t/p/original/${movie?.backdrop}`}
-            />
-          ) : (
-            <img
-              className="moviedetails__nobanner"
-              src={movie?.poster}
-              // src={`https://image.tmdb.org/t/p/original/${movie?.poster}`}
-              alt={movie?.original_title}
-            />
-          ))}
-      </Suspense>
-      {movie?.original_title ? (
-        <div className="moviedetails__container">
-          <MovieCard />
-          <MovieDetails />
-        </div>
+      {isLoading ? (
+        <BannerLoader />
       ) : (
-        <Loader />
+        <>
+          <MovieBanner />
+          <MovieCardDetailsLoader>
+            <MovieDetailsContainer />
+          </MovieCardDetailsLoader>
+          {/* {movie?.original_title && (
+            <div className="moviedetails__container">
+              <MovieCard />
+              <MovieDetails />
+            </div>
+          )} */}
+        </>
       )}
       <AboutMovieContainer />
     </div>

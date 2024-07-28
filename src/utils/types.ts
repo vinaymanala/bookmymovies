@@ -39,6 +39,8 @@ export type ResultsPerPage = {
   totalPages: number;
   isMoviesLoading: boolean;
   error: null;
+  start_date: number;
+  end_date: number;
 };
 
 export type PaginationProps = {
