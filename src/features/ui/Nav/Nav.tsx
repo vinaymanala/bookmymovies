@@ -56,7 +56,7 @@ const Nav = () => {
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setIsLoading(true));
     dispatch(setQuery(e.target.value));
-    // setTimeout(() => {
+
     const { value } = e.target as typeof e.target & {
       value: string;
     };
