@@ -43,10 +43,9 @@ export const getPopularMoviesByDate = createAsyncThunk(
       };
       const response = await axios.get(url, options);
 
-      return response.data?.releases;
-      // .filter(
-      //   (show: any) => show?.tmdb_type === "movie"
-      // );
+      return response.data?.releases.filter(
+        (show: any) => show?.tmdb_type === "movie"
+      );
     } catch (error: any) {
       return thunkApi.rejectWithValue({ start_date, end_date } + error.message);
       // console.log(error);

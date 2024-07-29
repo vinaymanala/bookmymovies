@@ -19,8 +19,10 @@ const MoviesSection = () => {
   );
 
   useEffect(() => {
-    dispatch(setIsMoviesLoading(true));
-    setTimeout(() => dispatch(getMovies()), 2000);
+    if (!popularMovies.length || !topRatedMovies.length) {
+      dispatch(setIsMoviesLoading(true));
+      setTimeout(() => dispatch(getMovies()), 2000);
+    }
   }, []);
 
   useEffect;

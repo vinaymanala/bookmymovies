@@ -14,7 +14,9 @@ const PopularMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getPopularMoviesByDate({ start_date, end_date }));
+    if (!data.results?.length) {
+      dispatch(getPopularMoviesByDate({ start_date, end_date }));
+    }
   }, []);
   function parseDate(dateStr: string) {
     // Extract the year, month, and day from the date string

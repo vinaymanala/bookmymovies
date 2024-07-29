@@ -14,7 +14,9 @@ const TopTRatedMoviesSection = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getTopRatedMoviesByDate({ start_date, end_date }));
+    if (!data.results?.length) {
+      dispatch(getTopRatedMoviesByDate({ start_date, end_date }));
+    }
   }, []);
   function parseDate(dateStr: string) {
     // Extract the year, month, and day from the date string
