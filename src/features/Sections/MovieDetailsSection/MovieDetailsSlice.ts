@@ -32,6 +32,7 @@ type MovieDetail = {
   original_language: string;
   plot_overview: string;
   type: string;
+  imdb_id: number | null;
 };
 
 interface initialStateProps {
@@ -63,6 +64,7 @@ const initialState: initialStateProps = {
     original_language: "",
     plot_overview: "",
     type: "",
+    imdb_id: null,
   },
 };
 

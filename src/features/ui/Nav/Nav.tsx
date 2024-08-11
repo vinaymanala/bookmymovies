@@ -35,6 +35,12 @@ const Nav = () => {
     });
     dispatch(setQuery(searchText));
     document.querySelector("input")?.setAttribute("value", searchText);
+
+    return () => {
+      hamburgerEl?.removeEventListener("click", () => {
+        navEl?.classList.toggle("nav--open");
+      });
+    };
   }, [navEl, searchText]);
 
   const useDebounce = (func: () => void, delay: number = 2000) => {
@@ -123,7 +129,7 @@ const Nav = () => {
                       : "nav__link"
                   }
                 >
-                  Popular
+                  Movies
                 </Link>
               </li>
               <li className="nav__item">
@@ -135,7 +141,7 @@ const Nav = () => {
                       : "nav__link"
                   }
                 >
-                  Toprated
+                  Shows
                 </Link>
               </li>
             </ul>

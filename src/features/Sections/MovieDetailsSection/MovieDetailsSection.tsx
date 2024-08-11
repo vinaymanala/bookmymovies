@@ -55,7 +55,7 @@ const MovieDetailsSection = () => {
                     Vote :{" "}
                     <span className="number__info">
                       {/* {(movie.critic_score * 10).toFixed(2)}% */}
-                      {movie?.user_rating}%
+                      {Math.floor(movie?.user_rating)}/10
                     </span>
                   </h3>
                 )}
@@ -63,7 +63,7 @@ const MovieDetailsSection = () => {
                   <h3 className="">
                     Popularity :{" "}
                     <span className="number__info">
-                      {movie?.relevance_percentile}%
+                      {movie?.relevance_percentile.toFixed(2)}%
                       {/* {((movie.popularity % 1000) / 10).toFixed(2)}% */}
                     </span>
                   </h3>
@@ -78,6 +78,7 @@ const MovieDetailsSection = () => {
                 <span key={id}>{genre}</span>
               ))}
           </div>
+
           <div className="language__info">
             Available in:{" "}
             {/* {movie?.spoken_languages.map((lang, id: number) => (
@@ -86,14 +87,24 @@ const MovieDetailsSection = () => {
             {movie?.original_language}
           </div>
         </div>
-        <button
-          className="btn"
-          onClick={() => {
-            navigate(`/movie/${id}/booking`);
-          }}
-        >
-          Book Now
-        </button>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <button
+            className="btn"
+            onClick={() => {
+              navigate(`/movie/${id}/booking`);
+            }}
+          >
+            Book Now
+          </button>
+          <button className="btn">
+            <a
+              href={`https://www.imdb.com/title/${movie?.imdb_id}`}
+              target="_blank"
+            >
+              Imdb
+            </a>
+          </button>
+        </div>
       </div>
     );
   };
@@ -101,12 +112,9 @@ const MovieDetailsSection = () => {
   const AboutMovieContainer = () => {
     return (
       <div className="moviedetails__about__container">
-        {movie?.overview && <h3 className="details__title"> About</h3>}
         <div className="moviedetails__about__section">
-          {movie?.type && (
-            <i>
-              <q>{movie?.type}</q>
-            </i>
+          {movie?.plot_overview && (
+            <h4 className="details__title"> what's the plot?</h4>
           )}
           {movie?.plot_overview && (
             <div className="moviedetails__about__paragraph">

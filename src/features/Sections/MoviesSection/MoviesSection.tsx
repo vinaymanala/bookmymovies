@@ -25,8 +25,6 @@ const MoviesSection = () => {
     }
   }, []);
 
-  useEffect;
-
   const handleLeftScroll = (ref: React.MutableRefObject<any>) => {
     ref.current?.scrollBy(-1035, 0);
   };
@@ -154,12 +152,12 @@ const MoviesSection = () => {
           <div className="movie__grid">
             <Loader />
           </div>
-        ) : query !== "" ? (
+        ) : query.length ? (
           <SearchedMovies />
         ) : (
           <>
-            <PopularMoviesList data={popularMovies} title={"Popular"} />
-            <TopTRatedMoviesList data={topRatedMovies} title={"Top Rated"} />
+            <PopularMoviesList data={popularMovies} title={"Latest Movies"} />
+            <TopTRatedMoviesList data={topRatedMovies} title={"Latest Shows"} />
           </>
         )}
       </div>

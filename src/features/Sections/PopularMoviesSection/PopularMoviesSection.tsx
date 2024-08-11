@@ -59,7 +59,7 @@ const PopularMoviesSection = () => {
     <React.Fragment>
       <div className="gridmovie__section">
         <div className="flex" style={{ marginBottom: "1rem" }}>
-          <h3 className="section__title">{"Popular Movies"}</h3>
+          <h3 className="section__title">{"Movies"}</h3>
           {/* {!isMoviesLoading && (
             <Pagination currentPage={index} totalPages={data?.total_pages} />
           )} */}
