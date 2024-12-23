@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../utils/hooks";
 import "./index.css";
 import { RootState } from "../../../utils";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails, setIsLoading } from "./MovieDetailsSlice";
 import Loader from "../../ui/Loader";
 
@@ -30,14 +30,9 @@ const MovieDetailsSection = () => {
   const MovieCard = () => {
     return (
       <React.Fragment>
-        {/* {!isLoading ? ( */}
         <div className="moviedetails__card">
           <img src={movie?.poster} alt={movie?.original_title} />
         </div>
-
-        {/* ) : (
-          <MovieCardLoader />
-        )} */}
       </React.Fragment>
     );
   };
@@ -140,7 +135,7 @@ const MovieDetailsSection = () => {
     useEffect(() => {
       const timerId = setTimeout(() => {
         setIsShown(true);
-        console.log(isShown);
+        // console.log(isShown);
       }, 1000);
 
       return () => {
@@ -175,6 +170,10 @@ const MovieDetailsSection = () => {
     );
   return (
     <div className="moviedetails__section">
+      {/* <button className="left__arrow">{"<"}</button> */}
+      <Link to={"/"} className="arrow" style={{ fontSize: "small" }}>
+        {"< "}Back
+      </Link>
       {isLoading ? (
         <BannerLoader />
       ) : (

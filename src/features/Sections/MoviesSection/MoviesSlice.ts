@@ -28,7 +28,7 @@ export const getMovies = createAsyncThunk(
       // const popularMovies = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`;
       // const topRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`;
 
-      const movieAPIReq = `https://api.watchmode.com/v1/releases/?apiKey=${API_KEY}&limit=30`;
+      const movieAPIReq = `https://api.watchmode.com/v1/releases/?apiKey=${API_KEY}&limit=50`;
 
       const options = {
         method: "GET",

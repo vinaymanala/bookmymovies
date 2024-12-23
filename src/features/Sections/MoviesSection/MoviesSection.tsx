@@ -58,6 +58,7 @@ const MoviesSection = () => {
               {data?.map((movie: Result) =>
                 movie?.poster_url && movie?.title ? (
                   <MovieCard
+                    key={movie?.id}
                     id={movie?.id}
                     poster_path={movie?.poster_url}
                     original_title={movie?.title}
@@ -104,6 +105,7 @@ const MoviesSection = () => {
               {data?.map((movie: Result) =>
                 movie?.poster_url && movie?.title ? (
                   <MovieCard
+                    key={movie?.id}
                     id={movie?.id}
                     poster_path={movie?.poster_url}
                     original_title={movie?.title}
@@ -132,6 +134,7 @@ const MoviesSection = () => {
           results.map((movie: Result) =>
             movie?.image_url && movie?.name ? (
               <MovieCard
+                key={movie?.id}
                 id={movie?.id}
                 poster_path={movie?.image_url}
                 original_title={movie?.name}
