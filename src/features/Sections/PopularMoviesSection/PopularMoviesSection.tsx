@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getPopularMoviesByDate, setDate } from "./PopularMoviesSlice";
 import Loader from "../../ui/Loader";
 import { Result } from "../../../utils/types";
 import { PopularMovieCard } from "../../ui/MovieCard/";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const PopularMoviesSection = () => {
-  const { data, start_date, end_date } = useAppSelector(
+  const lastItemRef: any = useRef<IntersectionObserver | null>(null);
+  const [noDataFound, setNoDataFound] = useState<boolean>(false);
+
+  const { data, start_date, end_date, isMoviesLoading } = useAppSelector(
     (state) => state.popular
   );
   const dispatch = useAppDispatch();
@@ -18,6 +20,23 @@ const PopularMoviesSection = () => {
       dispatch(getPopularMoviesByDate({ start_date, end_date }));
     }
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].target.lastChild && !isMoviesLoading) {
+        console.log(entries[0]);
+        if (entries[0].isIntersecting) {
+          getPopularMoviesAndShowsByDate(start_date, 30);
+        }
+      }
+    });
+    if (isMoviesLoading) return;
+    if (observer) observer.disconnect();
+    if (lastItemRef.current) {
+      observer.observe(lastItemRef?.current);
+    }
+  }, [isMoviesLoading, lastItemRef.current]);
+
   function parseDate(dateStr: string) {
     // Extract the year, month, and day from the date string
     const year = parseInt(dateStr.substring(0, 4), 10);
@@ -44,6 +63,14 @@ const PopularMoviesSection = () => {
 
     date.setDate(date.getDate() - daysMinus);
 
+    if (date.getTime() <= -8640000000000000) {
+      console.log(
+        "Reached the earliest possible date. Stopping further subtraction."
+      );
+      return setNoDataFound(true); // Indicate that no further subtraction is possible
+    }
+
+    setNoDataFound(false);
     const formattedDate = convertoYYYMMDD(date);
 
     dispatch(setDate({ formattedDate, start_date }));
@@ -53,7 +80,14 @@ const PopularMoviesSection = () => {
         end_date: start_date,
       })
     );
+    return true;
   }
+
+  const NoDataFound = () => (
+    <p style={{ textAlign: "center" }}>
+      <b>Yay! You have seen it all</b>
+    </p>
+  );
 
   return (
     <React.Fragment>
@@ -64,38 +98,23 @@ const PopularMoviesSection = () => {
             <Pagination currentPage={index} totalPages={data?.total_pages} />
           )} */}
         </div>
-        <InfiniteScroll
-          dataLength={data.results?.length as number}
-          next={() => {
-            getPopularMoviesAndShowsByDate(start_date, 30);
-          }}
-          hasMore={true}
-          loader={<Loader />}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        >
-          {/* {isMoviesLoading ? (
-            <Loader />
-          ) : ( */}
-          <div className="gridmovie__grid">
-            {data &&
-              data.results?.map(
-                (movie: Result) =>
-                  movie?.poster_url &&
-                  movie?.title && (
-                    <PopularMovieCard
-                      id={movie?.id}
-                      poster_path={movie?.poster_url}
-                      original_title={movie?.title}
-                    />
-                  )
-              )}
-          </div>
-          {/* )} */}
-        </InfiniteScroll>
+        <div className="gridmovie__grid">
+          {data &&
+            data.results?.map(
+              (movie: Result) =>
+                movie?.poster_url &&
+                movie?.title && (
+                  <PopularMovieCard
+                    ref={lastItemRef}
+                    id={movie?.id}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
+                  />
+                )
+            )}
+        </div>
+        {isMoviesLoading && <Loader />}
+        {noDataFound && <NoDataFound />}
       </div>
     </React.Fragment>
   );
