@@ -82,6 +82,10 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 }
 
+.infinite-scroll-component {
+  overflow: hidden !important;
+}
+
 .gridmovie__card {
   cursor: pointer;
   width: 10rem;

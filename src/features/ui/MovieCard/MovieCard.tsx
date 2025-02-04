@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { MovieCardProps } from "../../../utils/types";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,8 @@ export const MovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="movie__title">{original_title}</h5>
@@ -24,14 +26,14 @@ export const MovieCard = ({
   );
 };
 
-export const PopularMovieCard = ({
-  id,
-  poster_path,
-  original_title,
-}: MovieCardProps) => {
+export const PopularMovieCard = forwardRef(function PopularMovieCard(
+  { id, poster_path, original_title }: MovieCardProps,
+  ref: any
+) {
   const navigate = useNavigate();
   return (
     <div
+      ref={ref}
       key={id}
       className="gridmovie__card"
       onClick={() => {
@@ -39,22 +41,23 @@ export const PopularMovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="gridmovie__title">{original_title}</h5>
     </div>
   );
-};
+});
 
-export const TopRatedMovieCard = ({
-  id,
-  poster_path,
-  original_title,
-}: MovieCardProps) => {
+export const TopRatedMovieCard = forwardRef(function TopRatedMovieCard(
+  { id, poster_path, original_title }: MovieCardProps,
+  ref: any
+) {
   const navigate = useNavigate();
   return (
     <div
+      ref={ref}
       key={id}
       className="gridmovie__card"
       onClick={() => {
@@ -62,10 +65,11 @@ export const TopRatedMovieCard = ({
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+        src={poster_path}
+        // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
         alt={original_title}
       />
       <h5 className="gridmovie__title">{original_title}</h5>
     </div>
   );
-};
+});

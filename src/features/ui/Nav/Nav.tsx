@@ -9,6 +9,8 @@ import {
   setResults,
 } from "./SearchSlice";
 
+let timeoutId: any = null;
+
 const Nav = () => {
   const [navEl, setNavEl] = useState<any>(null);
   const controllerRef = useRef<AbortController>();
@@ -16,6 +18,8 @@ const Nav = () => {
   const dispatch = useAppDispatch();
 
   const headerEl = document.querySelector(".header");
+
+  const inputRef: any = useRef();
 
   // handle scroll on page
   window.addEventListener("scroll", () => {
@@ -34,11 +38,20 @@ const Nav = () => {
       navEl?.classList.toggle("nav--open");
     });
     dispatch(setQuery(searchText));
-    document.querySelector("input")?.setAttribute("value", searchText);
+    // document.querySelector("input")?.setAttribute("value", searchText);
+
+    return () => {
+      hamburgerEl?.removeEventListener("click", () => {
+        navEl?.classList.toggle("nav--open");
+      });
+    };
   }, [navEl, searchText]);
 
   const useDebounce = (func: () => void, delay: number = 2000) => {
-    setTimeout(() => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
       func();
     }, delay);
   };
@@ -53,10 +66,10 @@ const Nav = () => {
   };
 
   // handle search movies by keywords
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = async (e: any) => {
     dispatch(setIsLoading(true));
     dispatch(setQuery(e.target.value));
-    // setTimeout(() => {
+
     const { value } = e.target as typeof e.target & {
       value: string;
     };
@@ -64,12 +77,16 @@ const Nav = () => {
     if (value !== "") {
       setDispatchSearchCall(value);
     } else {
-      dispatch(setIsLoading(false));
-      dispatch(setResults([]));
-      dispatch(setQuery(""));
-      localStorage.setItem("searchText", "");
+      handleResetQuery();
     }
-    // }, 4000);
+  };
+
+  const handleResetQuery = () => {
+    dispatch(setIsLoading(false));
+    dispatch(setResults([]));
+    dispatch(setQuery(""));
+    document.querySelector("input")?.setAttribute("value", "");
+    localStorage.removeItem("searchText");
   };
 
   const SearchMovies = ({ cls }: { cls: string }) => {
@@ -79,7 +96,9 @@ const Nav = () => {
           type="text"
           className={cls}
           placeholder="Search movies..."
-          onChange={handleSearch}
+          onKeyUp={handleSearch}
+          ref={inputRef}
+          defaultValue={searchText}
           size={30}
         />
       </>
@@ -110,6 +129,7 @@ const Nav = () => {
                       ? "nav__link__active"
                       : "nav__link"
                   }
+                  onClick={() => handleResetQuery()}
                 >
                   Home
                 </Link>
@@ -123,7 +143,7 @@ const Nav = () => {
                       : "nav__link"
                   }
                 >
-                  Popular
+                  Movies
                 </Link>
               </li>
               <li className="nav__item">
@@ -135,7 +155,7 @@ const Nav = () => {
                       : "nav__link"
                   }
                 >
-                  Toprated
+                  Shows
                 </Link>
               </li>
             </ul>

@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/toprated" element={<TopRatedMovies />} />
         <Route path="/popular" element={<PopularMovies />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
-        <Route path="/movie/:id/:img/booking" element={<Booking />} />
+        <Route path="/movie/:id/booking" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   );

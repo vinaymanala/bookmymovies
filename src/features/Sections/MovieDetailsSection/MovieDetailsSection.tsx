@@ -1,8 +1,8 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../../utils/hooks";
 import "./index.css";
 import { RootState } from "../../../utils";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getMovieDetails, setIsLoading } from "./MovieDetailsSlice";
 import Loader from "../../ui/Loader";
 
@@ -18,6 +18,7 @@ const MovieDetailsSection = () => {
 
   useEffect(() => {
     // fetch movie details based on id
+    window.scrollTo(0, 0);
     setIsLoading(true);
     dispatch(getMovieDetails(movieId));
     return () => {
@@ -29,16 +30,9 @@ const MovieDetailsSection = () => {
   const MovieCard = () => {
     return (
       <React.Fragment>
-        {!isLoading ? (
-          <div className="moviedetails__card">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-              alt={movie?.original_title}
-            />
-          </div>
-        ) : (
-          <MovieCardLoader />
-        )}
+        <div className="moviedetails__card">
+          <img src={movie?.poster} alt={movie?.original_title} />
+        </div>
       </React.Fragment>
     );
   };
@@ -49,21 +43,23 @@ const MovieDetailsSection = () => {
         <h3 className="details__title">{movie?.original_title}</h3>
         <div className="details__info">
           <div>
-            {movie?.vote_average && movie?.vote_count ? (
+            {movie?.user_rating && movie?.user_rating ? (
               <div className="ratings__info">
-                {movie?.vote_average !== null && (
+                {movie?.user_rating !== null && (
                   <h3 className="">
                     Vote :{" "}
                     <span className="number__info">
-                      {(movie.vote_average * 10).toFixed(2)}%
+                      {/* {(movie.critic_score * 10).toFixed(2)}% */}
+                      {Math.floor(movie?.user_rating)}/10
                     </span>
                   </h3>
                 )}
-                {movie?.popularity !== null && (
+                {movie?.relevance_percentile !== null && (
                   <h3 className="">
                     Popularity :{" "}
                     <span className="number__info">
-                      {((movie.popularity % 1000) / 10).toFixed(2)}%
+                      {movie?.relevance_percentile.toFixed(2)}%
+                      {/* {((movie.popularity % 1000) / 10).toFixed(2)}% */}
                     </span>
                   </h3>
                 )}
@@ -72,26 +68,38 @@ const MovieDetailsSection = () => {
           </div>
           <div className="genre__info">
             Genre:
-            {movie?.genres &&
-              movie?.genres.map((genre, id: number) => (
-                <span key={id}>{genre?.name}</span>
+            {movie?.genre_names &&
+              movie?.genre_names.map((genre, id: number) => (
+                <span key={id}>{genre}</span>
               ))}
           </div>
+
           <div className="language__info">
             Available in:{" "}
-            {movie?.spoken_languages.map((lang, id: number) => (
+            {/* {movie?.spoken_languages.map((lang, id: number) => (
               <span key={id}>{lang?.name}</span>
-            ))}
+            ))} */}
+            {movie?.original_language}
           </div>
         </div>
-        <button
-          className="btn"
-          onClick={() => {
-            navigate(`/movie/${id}${movie?.backdrop_path}/booking`);
-          }}
-        >
-          Book Now
-        </button>
+        <div style={{ display: "flex", gap: "8px" }}>
+          <button
+            className="btn"
+            onClick={() => {
+              navigate(`/movie/${id}/booking`);
+            }}
+          >
+            Book Now
+          </button>
+          <button className="btn">
+            <a
+              href={`https://www.imdb.com/title/${movie?.imdb_id}`}
+              target="_blank"
+            >
+              Imdb
+            </a>
+          </button>
+        </div>
       </div>
     );
   };
@@ -99,16 +107,13 @@ const MovieDetailsSection = () => {
   const AboutMovieContainer = () => {
     return (
       <div className="moviedetails__about__container">
-        {movie?.overview && <h3 className="details__title"> About</h3>}
         <div className="moviedetails__about__section">
-          {movie?.tagline && (
-            <i>
-              <q>{movie?.tagline}</q>
-            </i>
+          {movie?.plot_overview && (
+            <h4 className="details__title"> what's the plot?</h4>
           )}
-          {movie?.overview && (
+          {movie?.plot_overview && (
             <div className="moviedetails__about__paragraph">
-              {movie?.overview}
+              {movie?.plot_overview}
             </div>
           )}
         </div>
@@ -116,35 +121,74 @@ const MovieDetailsSection = () => {
     );
   };
   const BannerLoader = () => {
-    return <div className="moviedetails__banner"></div>;
+    return (
+      <div
+        className="moviedetails__banner"
+        style={{ height: "620px", backgroundColor: "var(--ternaryColor)" }}
+      >
+        <Loader />
+      </div>
+    );
   };
-  const MovieCardLoader = () => {
-    return <div className="moviedetails__card"></div>;
+  const MovieCardDetailsLoader = ({ children }: any) => {
+    const [isShown, setIsShown] = useState(false);
+    useEffect(() => {
+      const timerId = setTimeout(() => {
+        setIsShown(true);
+        // console.log(isShown);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timerId);
+      };
+    }, []);
+    return <>{isShown && children}</>;
   };
+
+  const MovieBanner = () =>
+    movie?.backdrop ? (
+      <img
+        className="moviedetails__banner"
+        src={movie?.backdrop}
+        // src={`https://image.tmdb.org/t/p/original/${movie?.backdrop}`}
+      />
+    ) : (
+      <img
+        className="moviedetails__nobanner"
+        src={movie?.poster}
+        // src={`https://image.tmdb.org/t/p/original/${movie?.poster}`}
+        alt={movie?.original_title}
+      />
+    );
+
+  const MovieDetailsContainer = () =>
+    movie?.original_title && (
+      <div className="moviedetails__container">
+        <MovieCard />
+        <MovieDetails />
+      </div>
+    );
   return (
     <div className="moviedetails__section">
-      <Suspense fallback={<BannerLoader />}>
-        {!isLoading &&
-          (movie?.backdrop_path ? (
-            <img
-              className="moviedetails__banner"
-              src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-            />
-          ) : (
-            <img
-              className="moviedetails__nobanner"
-              src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-              alt={movie?.original_title}
-            />
-          ))}
-      </Suspense>
-      {movie?.original_title ? (
-        <div className="moviedetails__container">
-          <MovieCard />
-          <MovieDetails />
-        </div>
+      {/* <button className="left__arrow">{"<"}</button> */}
+      <Link to={"/"} className="arrow" style={{ fontSize: "small" }}>
+        {"< "}Back
+      </Link>
+      {isLoading ? (
+        <BannerLoader />
       ) : (
-        <Loader />
+        <>
+          <MovieBanner />
+          <MovieCardDetailsLoader>
+            <MovieDetailsContainer />
+          </MovieCardDetailsLoader>
+          {/* {movie?.original_title && (
+            <div className="moviedetails__container">
+              <MovieCard />
+              <MovieDetails />
+            </div>
+          )} */}
+        </>
       )}
       <AboutMovieContainer />
     </div>

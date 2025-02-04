@@ -4,11 +4,12 @@ import { SelectedSeatProp } from "../../../utils/types";
 import "./index.css";
 import { useAppDispatch } from "../../../utils/hooks";
 import { setSeatCount } from "./SeatGridSlice";
-type SeatGridSectionProp = {
-  img: string;
-};
+// type SeatGridSectionProp = {
+//   img: string;
+// };
 
-const SeatGridSection = ({ img }: SeatGridSectionProp) => {
+// const SeatGridSection = ({ img }: SeatGridSectionProp) => {
+const SeatGridSection = () => {
   const dispatch = useAppDispatch();
   const [seatsSelected, setSeatsSelected] = useState<Array<SelectedSeatProp>>(
     []
@@ -30,6 +31,10 @@ const SeatGridSection = ({ img }: SeatGridSectionProp) => {
               <button
                 className="btn"
                 onClick={() => setSeatSelection(noOfSeats)}
+                style={{
+                  borderStyle: "none",
+                  // border: "0.1px solid gray",
+                }}
               >
                 <h3>{noOfSeats}</h3>
               </button>
@@ -41,7 +46,7 @@ const SeatGridSection = ({ img }: SeatGridSectionProp) => {
         </dialog>
       )}
       <SeatGridStyles
-        image={img}
+        // image={img}
         setHandlerOnSeatSelect={setSeatsSelected}
         seatsSelected={seatsSelected}
       />

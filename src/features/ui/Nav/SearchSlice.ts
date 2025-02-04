@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Result } from "../../../utils/types";
 import axios from "axios";
-const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+// const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 interface SearchState {
   results: null | Result[];
@@ -25,12 +26,13 @@ export const getMoviesByName = createAsyncThunk(
   "search/getMoviesByName",
   async ({ value, signal }: Data, thunkApi) => {
     try {
-      const url = `https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`;
+      const url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${API_KEY}&search_value=${value}&search_type=1`;
+      // const url = `https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`;
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
+          // Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
         },
         signal,
       };

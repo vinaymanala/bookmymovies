@@ -19,11 +19,11 @@ const MoviesSection = () => {
   );
 
   useEffect(() => {
-    dispatch(setIsMoviesLoading(true));
-    setTimeout(() => dispatch(getMovies()), 2000);
+    if (!popularMovies.length || !topRatedMovies.length) {
+      dispatch(setIsMoviesLoading(true));
+      setTimeout(() => dispatch(getMovies()), 2000);
+    }
   }, []);
-
-  useEffect;
 
   const handleLeftScroll = (ref: React.MutableRefObject<any>) => {
     ref.current?.scrollBy(-1035, 0);
@@ -56,11 +56,12 @@ const MoviesSection = () => {
                 </button>
               ) : null}
               {data?.map((movie: Result) =>
-                movie?.poster_path && movie?.original_title ? (
+                movie?.poster_url && movie?.title ? (
                   <MovieCard
+                    key={movie?.id}
                     id={movie?.id}
-                    poster_path={movie?.poster_path}
-                    original_title={movie?.original_title}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
                 ) : null
               )}
@@ -102,11 +103,12 @@ const MoviesSection = () => {
                 </button>
               ) : null}
               {data?.map((movie: Result) =>
-                movie?.poster_path && movie?.original_title ? (
+                movie?.poster_url && movie?.title ? (
                   <MovieCard
+                    key={movie?.id}
                     id={movie?.id}
-                    poster_path={movie?.poster_path}
-                    original_title={movie?.original_title}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
                 ) : null
               )}
@@ -130,11 +132,12 @@ const MoviesSection = () => {
       <div className="movie__grid">
         {results?.length ? (
           results.map((movie: Result) =>
-            movie?.poster_path && movie?.original_title ? (
+            movie?.image_url && movie?.name ? (
               <MovieCard
+                key={movie?.id}
                 id={movie?.id}
-                poster_path={movie?.poster_path}
-                original_title={movie?.original_title}
+                poster_path={movie?.image_url}
+                original_title={movie?.name}
               />
             ) : null
           )
@@ -152,12 +155,12 @@ const MoviesSection = () => {
           <div className="movie__grid">
             <Loader />
           </div>
-        ) : query !== "" ? (
+        ) : query.length ? (
           <SearchedMovies />
         ) : (
           <>
-            <PopularMoviesList data={popularMovies} title={"Popular"} />
-            <TopTRatedMoviesList data={topRatedMovies} title={"Top Rated"} />
+            <PopularMoviesList data={popularMovies} title={"Latest Movies"} />
+            <TopTRatedMoviesList data={topRatedMovies} title={"Latest Shows"} />
           </>
         )}
       </div>
