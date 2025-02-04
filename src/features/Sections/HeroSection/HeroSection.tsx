@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
-import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
+import { useAppSelector } from "../../../utils/hooks";
 
 const HeroSection = () => {
-  const { isLoading, query } = useAppSelector((state) => state.search);
+  const { query } = useAppSelector((state) => state.search);
 
   return (
     <React.Fragment>

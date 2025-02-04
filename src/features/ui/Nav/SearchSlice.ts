@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Result } from "../../utils/types";
+import { Result } from "../../../utils/types";
 import axios from "axios";
-const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
-type Results = {
-  results: null | Result[];
-};
+// const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 interface SearchState {
-  results: null | Results[];
+  results: null | Result[];
   query: string;
   isLoading: boolean;
   error: null;
@@ -28,12 +26,13 @@ export const getMoviesByName = createAsyncThunk(
   "search/getMoviesByName",
   async ({ value, signal }: Data, thunkApi) => {
     try {
-      const url = `https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`;
+      const url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${API_KEY}&search_value=${value}&search_type=1`;
+      // const url = `https://api.themoviedb.org/3/search/movie?query=${value}&include_adult=false&language=en-US&page=1`;
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
+          // Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
         },
         signal,
       };
@@ -51,7 +50,7 @@ export const searchReducer = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setResults: (state = initialState, action: PayloadAction<Results[]>) => {
+    setResults: (state = initialState, action: PayloadAction<Result[]>) => {
       state.results = action.payload;
     },
     setIsLoading: (state = initialState, action: PayloadAction<boolean>) => {
@@ -65,11 +64,11 @@ export const searchReducer = createSlice({
     builder
       .addCase(getMoviesByName.pending, (state = initialState) => {
         state.isLoading = true;
-        // state.results = [];
+        state.results = [];
       })
       .addCase(
         getMoviesByName.fulfilled,
-        (state, action: PayloadAction<Results[]>) => {
+        (state, action: PayloadAction<Result[]>) => {
           state.isLoading = false;
           state.results = action.payload;
         }
@@ -77,7 +76,8 @@ export const searchReducer = createSlice({
       .addCase(
         getMoviesByName.rejected,
         (state, action: PayloadAction<any>) => {
-          (state.isLoading = false), (state.error = action.payload);
+          (state.isLoading = state.results?.length ? false : true),
+            (state.error = action.payload);
         }
       );
   },

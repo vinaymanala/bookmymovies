@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+// const VITE_BEARER_AUTH_KEY = import.meta.env.VITE_BEARER_AUTH_KEY;
+const API_KEY = import.meta.env.VITE_MOVIE_API_KEY;
 
 type MoviesState = {
   popularMovies: [];
@@ -23,26 +24,41 @@ export const getMovies = createAsyncThunk(
   "movies/getMovies",
   async (_, thunkApi) => {
     try {
-      const popularMovies = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`;
-      const topRateMovies = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`;
+      // https://api.watchmode.com/v1/releases/?apiKey=O4mMWYBpiGc9lFEIMQwWVWaiAkkCagQE4KiAnSPO
+      // const popularMovies = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`;
+      // const topRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`;
+
+      const movieAPIReq = `https://api.watchmode.com/v1/releases/?apiKey=${API_KEY}&limit=50`;
 
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
+          // Authorization: `Bearer ${VITE_BEARER_AUTH_KEY}`,
         },
       };
-      const getPopularMovies = await axios.get(popularMovies, options);
-      const getTopRatedMovies = await axios.get(topRateMovies, options);
+      const getMovieAPIReq = await axios.get(movieAPIReq, options);
 
-      const [popular, topRated] = await Promise.all([
-        getPopularMovies,
-        getTopRatedMovies,
-      ]);
-      const popularData = await popular.data.results;
-      const topRatedData = await topRated.data.results;
-      return [popularData, topRatedData];
+      // const getPopularMovies = await axios.get(popularMovies, options);
+      // const getTopRatedMovies = await axios.get(topRatedMovies, options);
+
+      // const movieData = await Promise.all([getMovieAPIReq]);
+      const getPopularMovies = getMovieAPIReq.data?.releases.filter(
+        (shows: any) => shows?.tmdb_type === "movie"
+      );
+      const getTopRatedMovies = getMovieAPIReq.data?.releases.filter(
+        (shows: any) => shows?.tmdb_type === "tv"
+      );
+      const [popular, topRated] = [getPopularMovies, getTopRatedMovies];
+      // const [popular]
+      // const [popular, topRated] = await Promise.all([
+      //   getPopularMovies,
+      //   getTopRatedMovies,
+      // ]);
+
+      // const popularData = await popular.data.results;
+      // const topRatedData = await topRated.data.results;
+      return [popular, topRated];
     } catch (error: any) {
       thunkApi.rejectWithValue(error.message);
     }
@@ -66,7 +82,6 @@ export const moviesReducer = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.isMoviesLoading = action.payload;
-      console.log(state.isMoviesLoading);
     },
   },
   extraReducers(builder) {

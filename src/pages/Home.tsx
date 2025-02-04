@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PageContainer from "../layout/PageContainer";
 import HeroSection from "../features/Sections/HeroSection";
 import MoviesSection from "../features/Sections/MoviesSection";
 
-type Results = {};
 const Home = () => {
   return (
     <React.Fragment>

@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import "./index.css";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { getMovies, setIsMoviesLoading } from "./MoviesSlice";
-
-type MoviesListProps = {
-  data: any;
-  title: String;
-};
+import { MoviesListProps, Result } from "../../../utils/types";
+import Loader from "../../ui/Loader";
+import { MovieCard } from "../../ui/MovieCard";
 
 const MoviesSection = () => {
   const popularMoviesRef = useRef<any>();
@@ -14,14 +13,16 @@ const MoviesSection = () => {
 
   const dispatch = useAppDispatch();
 
-  const { results, isLoading } = useAppSelector((state) => state.search);
+  const { results, isLoading, query } = useAppSelector((state) => state.search);
   const { popularMovies, topRatedMovies, isMoviesLoading } = useAppSelector(
     (state) => state.movies
   );
 
   useEffect(() => {
-    dispatch(setIsMoviesLoading(true));
-    setTimeout(() => dispatch(getMovies()), 2000);
+    if (!popularMovies.length || !topRatedMovies.length) {
+      dispatch(setIsMoviesLoading(true));
+      setTimeout(() => dispatch(getMovies()), 2000);
+    }
   }, []);
 
   const handleLeftScroll = (ref: React.MutableRefObject<any>) => {
@@ -35,14 +36,15 @@ const MoviesSection = () => {
   const PopularMoviesList = ({ data, title }: MoviesListProps) => {
     return (
       <div className="movies__content">
-        <div className="title">
-          <h3 id={`${title}`}>{title}</h3>
+        <div className="movie__section">
+          <div className="flex">
+            <h3>{title}</h3>
+            <Link to="popular" className="nav__link btn__viewall">
+              View All
+            </Link>
+          </div>
           {isMoviesLoading ? (
-            <div className="lds-facebook">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <Loader />
           ) : (
             <div className="movies__list" ref={popularMoviesRef}>
               {data.length ? (
@@ -53,15 +55,16 @@ const MoviesSection = () => {
                   {"<"}
                 </button>
               ) : null}
-              {data?.map((movie: any, id: number) => (
-                <div key={id} className="movie__card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                    alt={movie?.original_title}
+              {data?.map((movie: Result) =>
+                movie?.poster_url && movie?.title ? (
+                  <MovieCard
+                    key={movie?.id}
+                    id={movie?.id}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
-                  <h5 className="movie__title">{movie?.original_title}</h5>
-                </div>
-              ))}
+                ) : null
+              )}
               {data.length ? (
                 <button
                   className="right__arrow"
@@ -80,16 +83,17 @@ const MoviesSection = () => {
   const TopTRatedMoviesList = ({ data, title }: MoviesListProps) => {
     return (
       <div className="movies__content">
-        <div className="title">
-          <h3>{title}</h3>
+        <div className="movie__section">
+          <div className="flex">
+            <h3>{title}</h3>
+            <Link to="toprated" className="nav__link btn__viewall">
+              View All
+            </Link>
+          </div>
           {isMoviesLoading ? (
-            <div className="lds-facebook">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <Loader />
           ) : (
-            <div className="movies__list" ref={topRatedMoviesRef}>
+            <div className="movies__list " ref={topRatedMoviesRef}>
               {data.length ? (
                 <button
                   className="left__arrow"
@@ -98,15 +102,16 @@ const MoviesSection = () => {
                   {"<"}
                 </button>
               ) : null}
-              {data?.map((movie: any, id: number) => (
-                <div key={id} className="movie__card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                    alt={movie?.original_title}
+              {data?.map((movie: Result) =>
+                movie?.poster_url && movie?.title ? (
+                  <MovieCard
+                    key={movie?.id}
+                    id={movie?.id}
+                    poster_path={movie?.poster_url}
+                    original_title={movie?.title}
                   />
-                  <h5 className="movie__title">{movie?.original_title}</h5>
-                </div>
-              ))}
+                ) : null
+              )}
               {data.length ? (
                 <button
                   className="right__arrow"
@@ -121,33 +126,41 @@ const MoviesSection = () => {
       </div>
     );
   };
+
+  const SearchedMovies = () => {
+    return (
+      <div className="movie__grid">
+        {results?.length ? (
+          results.map((movie: Result) =>
+            movie?.image_url && movie?.name ? (
+              <MovieCard
+                key={movie?.id}
+                id={movie?.id}
+                poster_path={movie?.image_url}
+                original_title={movie?.name}
+              />
+            ) : null
+          )
+        ) : (
+          <p className="resultNotFound">No results found</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <React.Fragment>
       <div className="movies">
         {isLoading ? (
           <div className="movie__grid">
-            <div className="lds-facebook">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <Loader />
           </div>
-        ) : results && results.length ? (
-          <div className="movie__grid">
-            {results.map((movie: any, id: number) => (
-              <div key={id} className="movie__card">
-                <img
-                  src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                  alt={movie?.original_title}
-                />
-                <h5 className="movie__title">{movie?.original_title}</h5>
-              </div>
-            ))}
-          </div>
+        ) : query.length ? (
+          <SearchedMovies />
         ) : (
           <>
-            <PopularMoviesList data={popularMovies} title={"Popular"} />
-            <TopTRatedMoviesList data={topRatedMovies} title={"Top Rated"} />
+            <PopularMoviesList data={popularMovies} title={"Latest Movies"} />
+            <TopTRatedMoviesList data={topRatedMovies} title={"Latest Shows"} />
           </>
         )}
       </div>
